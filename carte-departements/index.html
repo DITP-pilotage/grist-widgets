@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Carte des départements</title>
+<script src="https://docs.getgrist.com/grist-plugin-api.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+<script src="../shared/carte.js"></script>
+<link rel="stylesheet" href="../shared/dsfr/marianne.css">
+<link rel="stylesheet" href="../shared/carte.css">
+</head>
+<body>
+<main>
+  <svg id="carte" role="img" aria-label="Carte des départements"></svg>
+  <div id="message">Chargement…</div>
+  <div id="bulle"></div>
+</main>
+<div id="legende"></div>
+<footer class="build-info"><a href="https://github.com/DITP-pilotage" target="_blank" rel="noopener">DITP-pilotage</a> — <span id="version">dev</span></footer>
+<script>initCarte({ geojson: "../shared/geo/departements.geojson", niveau: "departement" });</script>
+</body>
+</html>
