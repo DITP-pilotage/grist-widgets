@@ -53,7 +53,6 @@ async function initCarte({ geojson, niveau }) {
   geo.features.forEach((f) => { f.properties.code = normaliserCode(f.properties.code, niveau); });
 
   let lignes = [];
-  let ligneSelectionnee = null;
   let aCouleur = false;
 
   function couleurDe(ligne, echelle) {
@@ -88,7 +87,7 @@ async function initCarte({ geojson, niveau }) {
     svg.append("g").selectAll("path").data(zones).join("path")
       .attr("d", chemin)
       .attr("fill", (f) => couleurDe(parCode.get(f.properties.code), echelle))
-      .attr("class", (f) => (ligneSelectionnee && parCode.get(f.properties.code)?.id === ligneSelectionnee ? "zone selection" : "zone"))
+      .attr("class", "zone")
       .on("mousemove", (event, f) => {
         const l = parCode.get(f.properties.code);
         const nom = (l && l.Nom) || f.properties.nom;
@@ -147,10 +146,6 @@ async function initCarte({ geojson, niveau }) {
   grist.onRecords((records, mappings) => {
     aCouleur = Boolean(mappings && mappings.Couleur);
     lignes = grist.mapColumnNames(records) || [];
-    dessiner();
-  });
-  grist.onRecord((record) => {
-    ligneSelectionnee = record ? record.id : null;
     dessiner();
   });
   window.addEventListener("resize", () => dessiner());
